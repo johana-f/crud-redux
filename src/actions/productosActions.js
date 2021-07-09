@@ -25,4 +25,9 @@ const agregarProducto = () => ({
 const agregarProductoExito = (producto) => ({
   type: AGREGAR_PRODUCTO_EXITO,
   payload:producto
-})
+});
+
+const agregarProductoError = (estado) =>({
+  type: AGREGAR_PRODUCTO_ERROR,
+  payload:estado
+});
