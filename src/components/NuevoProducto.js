@@ -1,24 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {crearNuevoProductoAction} from '../actions/productosActions';
 
 
 const NuevoProducto = () => {
 
+  const  [nombre, setNombre] = useState('');
+  const [precio, setPrecio] = useState(0);
+
   const dispatch = useDispatch();
 
-  const agregarProducto = () => dispatch(crearNuevoProductoAction());
+  const cargando = useSelector((state) =>state.productos.loading);
+  console.log(cargando);
+
+  const agregarProducto = (producto) => dispatch(crearNuevoProductoAction(producto));
 
  const submitNuevoProducto = (e) =>{
   e.preventDefault();
 
   //validar el formulario
+  if(nombre.trim() ==='' || precio<=0){
+    return;
+  }
 
   //comprobar que no hayan errores
 
   //crear nuevo producto
-  agregarProducto();
- }
+  agregarProducto({
+    nombre,
+    precio
+  });
+ };
 
   return (
     <div className="row justify-content-center">
@@ -36,6 +48,8 @@ const NuevoProducto = () => {
                   className="form-control"
                   placeholder="nombre  del producto"
                   name="nombre"
+                  value={nombre}
+                  onChange={e =>setNombre(e.target.value)}
                 />
               </div>
 
@@ -46,6 +60,8 @@ const NuevoProducto = () => {
                   className="form-control"
                   placeholder="precio del producto"
                   name="precio"
+                  value={precio}
+                  onChange={e=>setPrecio(Number(e.target.value))}
                 />
               </div>
               <button className="btn btn-info font-weight-bold text-uppercase d-block w-100">

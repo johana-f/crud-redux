@@ -4,8 +4,6 @@ import {
   AGREGAR_PRODUCTO_ERROR,
 } from '../types';
 
-
-
 const initialState = {
   productos: [],
   error: null,
@@ -22,9 +20,15 @@ export default function (state = initialState, action) {
       case AGREGAR_PRODUCTO_EXITO:
         return {
           ...state,
-          loading: false,
+          loading: false,//pasa a false  porque se han agragado productos a la data
           productos: [...state.productos, action.payload]
         }
+        case AGREGAR_PRODUCTO_ERROR:
+          return{
+            ...state,
+            loading: false,
+            error:action.payload
+          }
 
     default:
       return state;
